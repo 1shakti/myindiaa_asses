@@ -10,11 +10,13 @@ const productListReducer = (state = initialState, action) => {
   switch (action.type) {
     case types.FETCH_PRODUCTLIST_REQUEST:
       return {
+        ...state,
         loading: true,
       };
 
     case types.FETCH_PRODUCTLIST_SUCCESS:
       return {
+        ...state,
         loading: false,
         res: action.payload.res,
       };
