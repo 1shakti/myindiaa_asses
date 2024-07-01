@@ -12,6 +12,7 @@ function* asyncfetchProductListSaga(action){
     }catch(e){
         yield put(productListFailure({error:e}));
         yield put(returnErros({msg: e.message, status: true}));
+
     }
 } 
 

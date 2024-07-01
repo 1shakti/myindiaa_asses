@@ -1,15 +1,21 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { InfinitySpinLoader, ProductList } from "../../components";
 import { useDispatch, useSelector } from "react-redux";
 import { productListRequest } from "../../store/actions/productListAction";
 import { useNavigate } from "react-router-dom";
 import { CART_LIST_PATH } from "../../constants/path";
 import { addToCarRequest } from "../../store/actions/cartAction";
+import { getDataFromDB } from "../../utils/indexedDB";
 
 export default function Product() {
+
+  const [loading, setLoading] = useState(true);
+  const [productsFromDB, setProductsFromDB] = useState([]);
+
   const dispatch = useDispatch();
-  const { loading, res } = useSelector((state) => state.productListReducer);
-  const navigate = useNavigate();
+  const { loading: productListLoading, res: productListRes } = useSelector(
+    (state) => state.productListReducer
+  );  const navigate = useNavigate();
   const cartState = useSelector((state) => state.cartReducer);
   const { cartItems } = cartState;
 
@@ -22,13 +28,25 @@ export default function Product() {
 
   useEffect(() => {
     dispatch(productListRequest());
-  }, []);
 
-  return loading ? (
+    // Check network status
+    const isOnline = navigator.onLine;
+
+    // Fetch data from IndexedDB if offline
+    if (!isOnline) {
+      getDataFromDB("products-db", "products-store").then((data) => {
+        setProductsFromDB(data);
+        setLoading(false); // Set loading to false once data is fetched
+      });
+    }
+  }, [dispatch]);
+  const productsToShow = productsFromDB.length > 0 ? productsFromDB : productListRes?.data?.products;
+
+  return (productListLoading || (loading && !navigator.onLine)) ? (
     <InfinitySpinLoader />
   ) : (
     <ProductList
-      products={res?.data?.products}
+      products={productsToShow}
       goToCart={goToCart}
       addToCart={addToCart}
       cartItems={cartItems}
