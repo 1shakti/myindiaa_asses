@@ -3,11 +3,9 @@ const urlsToCache = [
   '/',
   '/cartlist',
   '/index.html',
-  '/static/css/main.chunk.css',
   '/static/js/bundle.js',
-  '/static/js/0.chunk.js',
-  '/static/js/main.chunk.js',
   '/assets/logos/company_logo.png',
+  '/manifest.json'
 ];
 
 this.addEventListener('install', (event) => {
