@@ -1,7 +1,6 @@
 const CACHE_NAME = 'my-site-cache-v1';
 const urlsToCache = [
   '/',
-  '/cartlist',
   '/index.html',
   '/assets/logos/company_logo.png',
 ];
