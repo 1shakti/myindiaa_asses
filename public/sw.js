@@ -3,7 +3,6 @@ const urlsToCache = [
   '/',
   '/cartlist',
   '/index.html',
-  '/static/js/bundle.js',
   '/assets/logos/company_logo.png',
 ];
 
