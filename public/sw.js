@@ -1,11 +1,11 @@
 const CACHE_NAME = 'my-site-cache-v1';
 const urlsToCache = [
-  '/',
-  '/cartlist',
   '/index.html',
   '/static/js/bundle.js',
   '/assets/logos/company_logo.png',
-  '/manifest.json'
+  '/manifest.json',
+  '/cartlist',
+  '/',
 ];
 
 this.addEventListener('install', (event) => {
