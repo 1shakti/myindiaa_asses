@@ -1,50 +1,29 @@
 const CACHE_NAME = 'my-site-cache-v1';
 const urlsToCache = [
+  '/',
+  '/cartlist',
   '/index.html',
   '/static/js/bundle.js',
   '/assets/logos/company_logo.png',
-  '/manifest.json',
-  '/cartlist',
-  '/'
 ];
 
-self.addEventListener('install', (event) => {
+this.addEventListener('install', event => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
-      return cache.addAll(urlsToCache);
-    })
+    caches.open(CACHE_NAME)
+      .then(cache => cache.addAll(urlsToCache))
   );
 });
 
-self.addEventListener('fetch', (event) => {
-
-  if (!navigator.onLine) {
-      event.respondWith(
-    caches.match(event.request).then((response) => {
-      if (response) {
-        return response;
-      }
-
-      const fetchRequest = event.request.clone();
-
-      return fetch(fetchRequest).then((fetchResponse) => {
-        if (
-          !fetchResponse ||
-          fetchResponse.status !== 200 ||
-          fetchResponse.type !== 'basic'
-        ) {
-          return fetchResponse;
-        }
-
-        const responseToCache = fetchResponse.clone();
-
-        caches.open(CACHE_NAME).then((cache) => {
-          cache.put(event.request, responseToCache);
-        });
-
-        return fetchResponse;
-      });
-    })
-  );
-}
-});
+this.addEventListener("fetch", (event) => {
+    if (!navigator.onLine) {
+        event.respondWith(
+            caches.match(event.request).then((resp) => {
+                if (resp) {
+                    return resp
+                }
+                let requestUrl = event.request.clone();
+                fetch(requestUrl)
+            })
+        )
+    }
+}) 
