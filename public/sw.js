@@ -19,7 +19,9 @@ this.addEventListener('install', (event) => {
 });
 
 this.addEventListener('fetch', (event) => {
-  event.respondWith(
+
+  if (!navigator.onLine) {
+      event.respondWith(
     caches.match(event.request).then((response) => {
       if (response) {
         return response;
@@ -46,4 +48,5 @@ this.addEventListener('fetch', (event) => {
       });
     })
   );
+}
 });
