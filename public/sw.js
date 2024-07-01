@@ -5,7 +5,7 @@ const urlsToCache = [
   '/assets/logos/company_logo.png',
   '/manifest.json',
   '/cartlist',
-  '/',
+  '/'
 ];
 
 this.addEventListener('install', (event) => {
