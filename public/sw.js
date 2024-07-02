@@ -3,9 +3,7 @@ const urlsToCache = [
   '/',
   '/index.html',
   '/manifest.json',
-  '/static/js/bundle.js',
   '/assets/logos/company_logo.png',
-  '/cartlist',
 ];
 
 this.addEventListener('install', event => {
