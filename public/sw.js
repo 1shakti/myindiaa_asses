@@ -1,5 +1,6 @@
 const CACHE_NAME = 'my-site-cache-v1';
 const urlsToCache = [
+  '/static/js/bundle.js',
   '/',
   '/index.html',
   '/manifest.json',
