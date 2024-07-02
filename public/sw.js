@@ -7,14 +7,14 @@ const urlsToCache = [
   '/assets/logos/company_logo.png',
 ];
 
-self.addEventListener('install', event => {
+this.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then(cache => cache.addAll(urlsToCache))
   );
 });
 
-self.addEventListener('fetch', event => {
+this.addEventListener('fetch', event => {
   event.respondWith(
     caches.open(CACHE_NAME)
       .then(cache => {
